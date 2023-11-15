@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/form-example.css') }}">
+    <title>Form Example</title>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <div class="topnav"> 
+        {% for item in nav.top %}
+        <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+    </div>
+
+    <h1>Form Example</h1>
+
+    <!-- Trigger/Open The Modal -->
+    <button id="openModal">Open Form</button>
+
+    <!-- The Modal -->
+    <div id="modal1" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Enter Data</h2>
+            </div>
+
+            <div class="modal-body">
+                <!-- The submit button will perform an action that will redirect to the form_submit page. -->
+                <form action="{{ url_for('form_submit') }}" method="post">
+                    <!-- Inputs have both a name and an ID. -->
+                    <!-- ID is the HTML element ID. -->
+                    <!-- Name is the name of the data used in the POST method. -->
+                    <!-- Labels can reference element IDs. -->
+                    <label for="input1">Enter Sentence:</label><br>
+                    <input id="input1" type="text" name="userSentenceInput"><br><br>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- We run our JavaScript after the HTML since the JavaScript directly modifies HTML elements. -->
+    <script src="{{url_for('static', filename='js/modal.js')}}"></script>
+
+</body>
+</html>

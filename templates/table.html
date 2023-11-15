@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/form-example.css') }}">
+    <title>Sentimental Cognitive Service Reponse</title>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <div class="topnav">
+        {% for item in nav.top %}
+        <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+    </div>
+
+    <h1>AI Sentiment Reponse</h1>
+   
+    <table id="table1">
+        <tr>
+            <th>Sentence</th>
+            <th>Sentiment Response</th>
+            <th>Postive Confidence</th>
+            <th>Neutral Confidence</th>
+            <th>Negative Confidence</th>
+        </tr>
+
+        <!-- Loop through and display all rows from the SQL query -->
+        {% for row in records %}
+        <tr>
+            <td>{{ row.Sentence }}</td>
+            <td>{{ row.SentimentResponse }}</td>
+            <td>{{ row.PostiveConfidence }}</td>
+            <td>{{ row.NetrualConfidence }}</td>
+            <td>{{ row.NegativeConfidence }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
