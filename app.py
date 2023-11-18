@@ -1,4 +1,4 @@
-#just for a change
+#This is the MVP Revert Here
 from flask import Flask, render_template, request, redirect, url_for
 # The below handles some deprecated dependencies in Python > 3.10 that Flask Navigation needs
 import requests
@@ -10,29 +10,61 @@ from flask_navigation import Navigation
 from azuresqlconnector import *
 
 # ============================================
-def fetch_web_api(useToken, endpoint, method, body=None):
+# Remove Special Character Function
+
+def removeSpecialChars(sentence):
+
+    sentence = sentence.lower()
+    strippedSentence = ""
+
+    # Loops through each character of the sentence
+    for character in sentence:
+
+        # (If character is between a to z on ASCII Table) or (character is a space " ")
+        if (ord(character) > 96 and ord(character) < 123) or ord(character) == 32:
+            strippedSentence += character
+
+    return strippedSentence
+
+# ============================================
+# Function to Call Sentimental AI API
+def APICall(sentence):
+    # Define the API endpoint URL
+    url = "https://langaisamueltrujillo.cognitiveservices.azure.com/language/:analyze-text?api-version=2023-04-15-preview"
+
+    # Define the API key
+    api_key = "9640d8a2503542daa89851a93feec843"
+
+    # Define the headers, including the API key
     headers = {
-        'Authorization': f'Bearer {useToken}'
+        "Content-Type": "application/json",
+        "Ocp-Apim-Subscription-Key": api_key
     }
 
-    url = f'https://api.spotify.com/{endpoint}'
-    
-    if method == 'GET':
-        response = requests.get(url, headers=headers)
-        return response.json()
-    elif method == 'POST':
-        print("Post Happens")
-        headers['Content-Type'] = 'application/json'
-        response = requests.post(url, headers=headers, json=body)
-    else:
-        raise ValueError(f"Unsupported HTTP method: {method}")
+    # Define the JSON data to be sent in the request body
+    data = {
+        "kind": "SentimentAnalysis",
+        "parameters": {
+            "modelVersion": "latest",
+            "opinionMining": "True"
+        },
+        "analysisInput": {
+            "documents": [
+                {
+                    "id": "1",
+                    "language": "en",
+                    "text": sentence
+                }
+            ]
+        }
+    }
 
-    response.raise_for_status()
+    # ===========================
+    # Try & Except for Response
+
+    # Make the POST request
+    response = requests.post(url, json=data, headers=headers)
     return response.json()
-
-def get_top_tracks(useToken):
-    # Endpoint reference: https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
-    return fetch_web_api(useToken,'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
 
 # ============================================
 app = Flask(__name__)
@@ -63,11 +95,26 @@ def form():
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
 def form_submit():
-    
+    apiInfo = None
+    # -------------------------------------------
+    # Get Input from User
+    form_data1 = request.form['userSentenceInput']
 
-    top_tracks = get_top_tracks("BQBAm-vvAQOo2ONypetvm6H8ioTtU-fHZ7w1tJSIDtJNNeYmnsDxDC6UD1CmRzgmaMjM-wk6ee8gVGI9FDzTHzjeAUEp_zmfng9K8Dm_vxYAUvUGppisJ110Agpiy8v-MEgzu_9mgtE2sQZRtquYAgOC_hZgE7fwZ8JCENjVzvZzT_ER0DCPamM0yrXLJSXnM0wrdslA90V1gX02k0D9AHUCWVAbgI3uQkx79Xyewyc7PUYbx2JVO13J0XDdUNvSfheUrSkarQ")
-    artist = top_tracks['items'][0]["artists"][0]["name"]
-    songName = top_tracks['items'][0]["name"]
+    # -------------------------------------------
+    # Call API & Get Response
+    try:
+        # Trys to run User's Input
+        apiInfo = APICall( removeSpecialChars(form_data1) )
+
+    except:
+        # If Fails runs default API Call that work
+        apiInfo = APICall( "Your Sentence is not vaild" )
+
+    sentence = form_data1
+    sentimentResponse = apiInfo["results"]["documents"][0]["sentences"][0]["targets"][0]["sentiment"]
+    postiveScore = apiInfo["results"]["documents"][0]["confidenceScores"]["positive"]
+    neutralScore = apiInfo["results"]["documents"][0]["confidenceScores"]["neutral"]
+    negativeScore = apiInfo["results"]["documents"][0]["confidenceScores"]["negative"]
 
     # -------------------------------------------
     # Initialize SQL connection
@@ -78,10 +125,13 @@ def form_submit():
     # -------------------------------------------
     # Add AI API Response to SQL Database
     sql_query = f"""
-        INSERT INTO SpotifyBuilderFinalProject.MVPPlaylistTable
+        INSERT INTO SentimalAIResponseTable.AIResponseTable
         VALUES (
-         '{artist}',
-         '{songName}',
+         '{sentence}',
+         '{sentimentResponse}',
+         '{postiveScore}',
+         '{neutralScore}',
+         '{negativeScore}'
          );
         """
 
@@ -104,52 +154,21 @@ def form_submit():
 
 @app.route('/table') 
 def table():
-    """
-    top_tracks = get_top_tracks("BQBAm-vvAQOo2ONypetvm6H8ioTtU-fHZ7w1tJSIDtJNNeYmnsDxDC6UD1CmRzgmaMjM-wk6ee8gVGI9FDzTHzjeAUEp_zmfng9K8Dm_vxYAUvUGppisJ110Agpiy8v-MEgzu_9mgtE2sQZRtquYAgOC_hZgE7fwZ8JCENjVzvZzT_ER0DCPamM0yrXLJSXnM0wrdslA90V1gX02k0D9AHUCWVAbgI3uQkx79Xyewyc7PUYbx2JVO13J0XDdUNvSfheUrSkarQ")
-    artist = top_tracks['items'][0]["artists"][0]["name"]
-    songName = top_tracks['items'][0]["name"]
-    """
-    # -------------------------------------------
-    # Initialize SQL connection
-    conn = SQLConnection()
-    conn = conn.getConnection()
-    cursor = conn.cursor()
 
-    # -------------------------------------------
-    # Add AI API Response to SQL Database
-    sql_query = f"""
-        INSERT INTO SpotifyBuilderFinalProject.MVPPlaylistTable
-        VALUES (
-         '{"Example"}',
-         '{"Example"}',
-         );
-        """
-
-    cursor.execute(sql_query)
-
-    # -------------------------------------------
-    print("Data submitted. . .")
-
-    # IMPORTANT: The connection must commit the changes.
-    conn.commit()
-
-    print("Changes commited.")
-
-    cursor.close()
-    
     # Initialize SQL connection
     conn = SQLConnection()
     conn = conn.getConnection()
     cursor = conn.cursor()
 
     sql_query = f"""
-        SELECT * FROM SpotifyBuilderFinalProject.MVPPlaylistTable;
+        SELECT * FROM SentimalAIResponseTable.AIResponseTable;
         """
 
     cursor.execute(sql_query)
 
     records = cursor.fetchall()
-
+    print("Records")
+    print(records)
 
     cursor.close()
 
@@ -157,5 +176,3 @@ def table():
 
 if __name__ == '__main__': 
     app.run()
-
-#random comment heres
