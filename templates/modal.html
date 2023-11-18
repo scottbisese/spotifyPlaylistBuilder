@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/form-example.css') }}">
+    <title>Modal Example</title>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <div class="topnav"> 
+        {% for item in nav.top %}
+        <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+    </div>
+
+    <h1>Modal Example</h1>
+
+    <!-- Trigger/Open The Modal -->
+    <button id="openModal">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="modal1" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header">
+                <!-- Close button. &times gives us an X symbol. -->
+                <!-- span is like div, but for one line instead of a block. -->
+                <span class="close">&times;</span>
+                <h2>This is a Modal</h2>
+            </div>
+            
+            <div class="modal-body">
+                <p>This is a modal! Click the close button or outside of the modal to close it.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- We run our JavaScript after the HTML since the JavaScript directly modifies HTML elements. -->
+    <script src="{{url_for('static', filename='js/modal.js')}}"></script>
+
+</body>
+</html>

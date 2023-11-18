@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/form-example.css') }}">
+    <title>Home</title>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <div class="topnav"> 
+        {% for item in nav.top %}
+        <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %} 
+    </div>
+    
+   <h1>Modals and Forms Example</h1>
+   <p>This application demonstrates how to use modals and forms. This application will connect to an Azure SQL database.</p>
+   <p>Explore the application code to learn how this application works.</p>
+</body>
+</html>
