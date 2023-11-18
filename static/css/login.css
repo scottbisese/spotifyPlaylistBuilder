@@ -27,6 +27,23 @@ h2 {
     margin-bottom: 20px;
 }
 
+input[type="submit"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1DB954;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Adding transition for hover effect */
+}
+
+/* Changing the background color on hover */
+input[type="submit"]:hover {
+    background-color: #168f3f;
+}
+
 input[type="text"],
 input[type="password"],
 button {
