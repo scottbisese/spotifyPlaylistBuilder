@@ -64,9 +64,8 @@ def form():
 @app.route('/form_submit', methods=['POST']) 
 def form_submit():
     
-    form_data1 = request.form["userSentenceInput"]
 
-    top_tracks = get_top_tracks(str(form_data1))
+    top_tracks = get_top_tracks("BQBAm-vvAQOo2ONypetvm6H8ioTtU-fHZ7w1tJSIDtJNNeYmnsDxDC6UD1CmRzgmaMjM-wk6ee8gVGI9FDzTHzjeAUEp_zmfng9K8Dm_vxYAUvUGppisJ110Agpiy8v-MEgzu_9mgtE2sQZRtquYAgOC_hZgE7fwZ8JCENjVzvZzT_ER0DCPamM0yrXLJSXnM0wrdslA90V1gX02k0D9AHUCWVAbgI3uQkx79Xyewyc7PUYbx2JVO13J0XDdUNvSfheUrSkarQ")
     artist = top_tracks['items'][0]["artists"][0]["name"]
     songName = top_tracks['items'][0]["name"]
 
