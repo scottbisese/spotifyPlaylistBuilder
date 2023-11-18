@@ -11,60 +11,32 @@ from azuresqlconnector import *
 
 # ============================================
 # Remove Special Character Function
-
-def removeSpecialChars(sentence):
-
-    sentence = sentence.lower()
-    strippedSentence = ""
-
-    # Loops through each character of the sentence
-    for character in sentence:
-
-        # (If character is between a to z on ASCII Table) or (character is a space " ")
-        if (ord(character) > 96 and ord(character) < 123) or ord(character) == 32:
-            strippedSentence += character
-
-    return strippedSentence
-
-# ============================================
-# Function to Call Sentimental AI API
-def APICall(sentence):
-    # Define the API endpoint URL
-    url = "https://langaisamueltrujillo.cognitiveservices.azure.com/language/:analyze-text?api-version=2023-04-15-preview"
-
-    # Define the API key
-    api_key = "9640d8a2503542daa89851a93feec843"
-
-    # Define the headers, including the API key
+def fetch_web_api(token,endpoint, method, body=None):
     headers = {
-        "Content-Type": "application/json",
-        "Ocp-Apim-Subscription-Key": api_key
+        'Authorization': f'Bearer {token}'
     }
 
-    # Define the JSON data to be sent in the request body
-    data = {
-        "kind": "SentimentAnalysis",
-        "parameters": {
-            "modelVersion": "latest",
-            "opinionMining": "True"
-        },
-        "analysisInput": {
-            "documents": [
-                {
-                    "id": "1",
-                    "language": "en",
-                    "text": sentence
-                }
-            ]
-        }
-    }
+    url = f'https://api.spotify.com/{endpoint}'
+    print("URL HERE:", url)
+    
+    if method == 'GET':
+        response = requests.get(url, headers=headers)
+        return response.json()
+    elif method == 'POST':
+        print("Post Happens")
+        headers['Content-Type'] = 'application/json'
+        response = requests.post(url, headers=headers, json=body)
+    else:
+        raise ValueError(f"Unsupported HTTP method: {method}")
 
-    # ===========================
-    # Try & Except for Response
-
-    # Make the POST request
-    response = requests.post(url, json=data, headers=headers)
+    response.raise_for_status()
     return response.json()
+
+def get_top_tracks(token):
+    # Endpoint reference: https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
+    return fetch_web_api(token,
+        'v1/me/top/tracks?time_range=short_term&limit=10', 'GET'
+    )['items']
 
 # ============================================
 app = Flask(__name__)
@@ -95,26 +67,12 @@ def form():
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
 def form_submit():
-    apiInfo = None
-    # -------------------------------------------
-    # Get Input from User
-    form_data1 = request.form['userSentenceInput']
+    
+    form_data1 = request.form["userSentenceInput"]
 
-    # -------------------------------------------
-    # Call API & Get Response
-    try:
-        # Trys to run User's Input
-        apiInfo = APICall( removeSpecialChars(form_data1) )
-
-    except:
-        # If Fails runs default API Call that work
-        apiInfo = APICall( "Your Sentence is not vaild" )
-
-    sentence = form_data1
-    sentimentResponse = apiInfo["results"]["documents"][0]["sentences"][0]["targets"][0]["sentiment"]
-    postiveScore = apiInfo["results"]["documents"][0]["confidenceScores"]["positive"]
-    neutralScore = apiInfo["results"]["documents"][0]["confidenceScores"]["neutral"]
-    negativeScore = apiInfo["results"]["documents"][0]["confidenceScores"]["negative"]
+    top_tracks = get_top_tracks(str(form_data1))
+    artist = top_tracks[0]["artists"][0]["name"]
+    songName = top_tracks[0]["name"]
 
     # -------------------------------------------
     # Initialize SQL connection
@@ -125,13 +83,10 @@ def form_submit():
     # -------------------------------------------
     # Add AI API Response to SQL Database
     sql_query = f"""
-        INSERT INTO SentimalAIResponseTable.AIResponseTable
+        INSERT INTO SpotifyBuilderFinalProject.MVPPlaylistTable
         VALUES (
-         '{sentence}',
-         '{sentimentResponse}',
-         '{postiveScore}',
-         '{neutralScore}',
-         '{negativeScore}'
+         '{artist}',
+         '{songName}',
          );
         """
 
@@ -161,14 +116,13 @@ def table():
     cursor = conn.cursor()
 
     sql_query = f"""
-        SELECT * FROM SentimalAIResponseTable.AIResponseTable;
+        SELECT * FROM SpotifyBuilderFinalProject.MVPPlaylistTable;
         """
 
     cursor.execute(sql_query)
 
     records = cursor.fetchall()
-    print("Records")
-    print(records)
+
 
     cursor.close()
 
