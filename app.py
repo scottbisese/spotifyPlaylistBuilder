@@ -28,42 +28,24 @@ def removeSpecialChars(sentence):
 
 # ============================================
 # Function to Call Sentimental AI API
-def APICall(sentence):
-    # Define the API endpoint URL
-    url = "https://langaisamueltrujillo.cognitiveservices.azure.com/language/:analyze-text?api-version=2023-04-15-preview"
-
-    # Define the API key
-    api_key = "9640d8a2503542daa89851a93feec843"
-
-    # Define the headers, including the API key
+def APICall(useToken, endpoint, method, body=None):
     headers = {
-        "Content-Type": "application/json",
-        "Ocp-Apim-Subscription-Key": api_key
+        'Authorization': f'Bearer {useToken}'
     }
 
-    # Define the JSON data to be sent in the request body
-    data = {
-        "kind": "SentimentAnalysis",
-        "parameters": {
-            "modelVersion": "latest",
-            "opinionMining": "True"
-        },
-        "analysisInput": {
-            "documents": [
-                {
-                    "id": "1",
-                    "language": "en",
-                    "text": sentence
-                }
-            ]
-        }
-    }
+    url = f'https://api.spotify.com/{endpoint}'
+    
+    if method == 'GET':
+        response = requests.get(url, headers=headers)
+        return response.json()
+    elif method == 'POST':
+        print("Post Happens")
+        headers['Content-Type'] = 'application/json'
+        response = requests.post(url, headers=headers, json=body)
+    else:
+        raise ValueError(f"Unsupported HTTP method: {method}")
 
-    # ===========================
-    # Try & Except for Response
-
-    # Make the POST request
-    response = requests.post(url, json=data, headers=headers)
+    response.raise_for_status()
     return response.json()
 
 # ============================================
@@ -95,26 +77,12 @@ def form():
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
 def form_submit():
-    apiInfo = None
     # -------------------------------------------
     # Get Input from User
     form_data1 = request.form['userSentenceInput']
 
-    # -------------------------------------------
-    # Call API & Get Response
-    try:
-        # Trys to run User's Input
-        apiInfo = APICall( removeSpecialChars(form_data1) )
-
-    except:
-        # If Fails runs default API Call that work
-        apiInfo = APICall( "Your Sentence is not vaild" )
-
-    sentence = form_data1
-    sentimentResponse = apiInfo["results"]["documents"][0]["sentences"][0]["targets"][0]["sentiment"]
-    postiveScore = apiInfo["results"]["documents"][0]["confidenceScores"]["positive"]
-    neutralScore = apiInfo["results"]["documents"][0]["confidenceScores"]["neutral"]
-    negativeScore = apiInfo["results"]["documents"][0]["confidenceScores"]["negative"]
+    token = "BQBAm-vvAQOo2ONypetvm6H8ioTtU-fHZ7w1tJSIDtJNNeYmnsDxDC6UD1CmRzgmaMjM-wk6ee8gVGI9FDzTHzjeAUEp_zmfng9K8Dm_vxYAUvUGppisJ110Agpiy8v-MEgzu_9mgtE2sQZRtquYAgOC_hZgE7fwZ8JCENjVzvZzT_ER0DCPamM0yrXLJSXnM0wrdslA90V1gX02k0D9AHUCWVAbgI3uQkx79Xyewyc7PUYbx2JVO13J0XDdUNvSfheUrSkarQ"
+    response = APICall(token, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
 
     # -------------------------------------------
     # Initialize SQL connection
@@ -127,11 +95,11 @@ def form_submit():
     sql_query = f"""
         INSERT INTO SentimalAIResponseTable.AIResponseTable
         VALUES (
-         '{sentence}',
-         '{sentimentResponse}',
-         '{postiveScore}',
-         '{neutralScore}',
-         '{negativeScore}'
+         '{"response"}',
+         '{"response"}',
+         '{"Example"}',
+         '{"Example"}',
+         '{"Example"}'
          );
         """
 
