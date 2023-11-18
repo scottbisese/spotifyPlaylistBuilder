@@ -10,23 +10,6 @@ from flask_navigation import Navigation
 from azuresqlconnector import *
 
 # ============================================
-# Remove Special Character Function
-
-def removeSpecialChars(sentence):
-
-    sentence = sentence.lower()
-    strippedSentence = ""
-
-    # Loops through each character of the sentence
-    for character in sentence:
-
-        # (If character is between a to z on ASCII Table) or (character is a space " ")
-        if (ord(character) > 96 and ord(character) < 123) or ord(character) == 32:
-            strippedSentence += character
-
-    return strippedSentence
-
-# ============================================
 # Function to Call Sentimental AI API
 def APICall(useToken, endpoint, method, body=None):
     headers = {
@@ -64,7 +47,7 @@ nav.Bar('top', [
 
 @app.route('/') 
 def index():
-    return render_template('form-example-home.html')
+    return render_template('newFormPage.html')
 
 @app.route('/modal') 
 def modal():
@@ -72,7 +55,7 @@ def modal():
 
 @app.route('/form') 
 def form():
-    return render_template('form.html')
+    return render_template('newFormPage.html')
 
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
