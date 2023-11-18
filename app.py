@@ -56,14 +56,23 @@ nav = Navigation(app)
 # Initialize navigations
 # Navigations have a label and a reference that ties to one of the functions below
 nav.Bar('top', [
+    nav.Item('Home', 'index'),
+    nav.Item('Modal Example', 'modal'), 
     nav.Item('Form Example', 'form'),
     nav.Item('Display Table Example', 'table')
 ])
 
 @app.route('/') 
 def index():
-    return render_template('form.html')
+    return render_template('form-example-home.html')
 
+@app.route('/modal') 
+def modal():
+    return render_template('modal.html')
+
+@app.route('/form') 
+def form():
+    return render_template('form.html')
 
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
