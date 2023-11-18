@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/login.css') }}">
-    <title>Form Example</title>
+
+    <style>
+        body {
+            /* Set the background image for the entire page */
+            background-image: url('https://images7.alphacoders.com/133/1333817.jpeg');
+            /* Adjust background properties */
+            background-size: cover; /* Adjusts the image size to cover the entire background */
+            background-position: center; /* Centers the background image */
+            /* Optionally, you can set additional properties like background-repeat, etc. */
+        }
+    </style>
+    
 </head>
 <body>
 
@@ -14,9 +25,9 @@
                 <!-- The submit button will perform an action that will redirect to the form_submit page. -->
                 <form action="{{ url_for('form_submit') }}" method="post">
 
-                    <label for="input1">Enter Sentence:</label><br>
+                    <label for="input1">Enter Spotify Token:</label><br>
                     <input id="input1" type="text" name="userSentenceInput"><br><br>
-                    <input type="submit">
+                    <input type="Submit">
                 </form>
 
             </div>
