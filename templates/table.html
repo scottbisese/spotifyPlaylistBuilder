@@ -17,21 +17,15 @@
    
     <table id="table1">
         <tr>
-            <th>Sentence</th>
-            <th>Sentiment Response</th>
-            <th>Postive Confidence</th>
-            <th>Neutral Confidence</th>
-            <th>Negative Confidence</th>
+            <th>Song Aritist</th>
+            <th>Song Name</th>
         </tr>
 
         <!-- Loop through and display all rows from the SQL query -->
         {% for row in records %}
         <tr>
-            <td>{{ row.Sentence }}</td>
-            <td>{{ row.SentimentResponse }}</td>
-            <td>{{ row.PostiveConfidence }}</td>
-            <td>{{ row.NetrualConfidence }}</td>
-            <td>{{ row.NegativeConfidence }}</td>
+            <td>{{ row.SongName }}</td>
+            <td>{{ row.SongAritist }}</td>
         </tr>
         {% endfor %}
 
