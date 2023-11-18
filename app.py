@@ -95,13 +95,10 @@ def form_submit():
     # -------------------------------------------
     # Add AI API Response to SQL Database
     sql_query = f"""
-        INSERT INTO SentimalAIResponseTable.AIResponseTable
+        INSERT INTO SpotifyBuilderFinalProject.MVPPlaylistTable
         VALUES (
          '{songName}',
-         '{artistName}',
-         '{"Turkey"}',
-         '{"Turkey"}',
-         '{"Turkeys"}'
+         '{artistName}'
          );
         """
 
@@ -131,7 +128,7 @@ def table():
     cursor = conn.cursor()
 
     sql_query = f"""
-        SELECT * FROM SentimalAIResponseTable.AIResponseTable;
+        SELECT * FROM SpotifyBuilderFinalProject.MVPPlaylistTable;
         """
 
     cursor.execute(sql_query)
