@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/form-example.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/login.css') }}">
     <title>Form Example</title>
 </head>
 <body>
@@ -13,20 +13,25 @@
         {% endfor %}
     </div>
 
-    <h1>Form Example</h1>
 
-        <div class="form-body">
-            <!-- The submit button will perform an action that will redirect to the form_submit page. -->
-            <form action="{{ url_for('form_submit') }}" method="post">
-                <!-- Inputs have both a name and an ID. -->
-                <!-- ID is the HTML element ID. -->
-                <!-- Name is the name of the data used in the POST method. -->
-                <!-- Labels can reference element IDs. -->
-                <label for="input1">Enter Sentence:</label><br>
-                <input id="input1" type="text" name="userSentenceInput"><br><br>
-                <input type="submit">
-            </form>
+
+        <div class="login-container">
+            <div class="login-box">
+                <h2>Log in to Spotify</h2>
+                <!-- The submit button will perform an action that will redirect to the form_submit page. -->
+                <form action="{{ url_for('form_submit') }}" method="post">
+
+                    <label for="input1">Enter Sentence:</label><br>
+                    <input id="input1" type="text" name="userSentenceInput"><br><br>
+                    <input type="submit">
+                </form>
+
+            </div>
         </div>
+
+
+
+
 
     </body>
 </html>
