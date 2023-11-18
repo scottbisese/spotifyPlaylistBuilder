@@ -100,7 +100,7 @@ def form_submit():
     print("Redirecting. . .")
 
     # Redirect back to form page after the form is submitted
-    return redirect(url_for('form'))
+    return redirect(url_for('table'))
 
 @app.route('/table') 
 def table():
