@@ -64,7 +64,7 @@ nav.Bar('top', [
 
 @app.route('/') 
 def index():
-    return render_template('form-example-home.html')
+    return render_template('form.html')
 
 @app.route('/modal') 
 def modal():
