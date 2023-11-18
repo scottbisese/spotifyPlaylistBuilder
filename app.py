@@ -82,7 +82,10 @@ def form_submit():
     form_data1 = request.form['userSentenceInput']
 
     token = "BQBAm-vvAQOo2ONypetvm6H8ioTtU-fHZ7w1tJSIDtJNNeYmnsDxDC6UD1CmRzgmaMjM-wk6ee8gVGI9FDzTHzjeAUEp_zmfng9K8Dm_vxYAUvUGppisJ110Agpiy8v-MEgzu_9mgtE2sQZRtquYAgOC_hZgE7fwZ8JCENjVzvZzT_ER0DCPamM0yrXLJSXnM0wrdslA90V1gX02k0D9AHUCWVAbgI3uQkx79Xyewyc7PUYbx2JVO13J0XDdUNvSfheUrSkarQ"
-    response = APICall(token, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
+    response = APICall(form_data1, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
+
+    artistName = response['items'][0]["artists"][0]["name"]
+    songName = response['items'][0]["name"]
 
     # -------------------------------------------
     # Initialize SQL connection
@@ -95,8 +98,8 @@ def form_submit():
     sql_query = f"""
         INSERT INTO SentimalAIResponseTable.AIResponseTable
         VALUES (
-         '{"response"}',
-         '{"response"}',
+         '{songName}',
+         '{artistName}',
          '{"Example"}',
          '{"Example"}',
          '{"Example"}'
