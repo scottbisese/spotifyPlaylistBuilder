@@ -45,7 +45,7 @@ nav.Bar('top', [
 
 @app.route('/') 
 def index():
-    return render_template('newFormPage.html')
+    return render_template('setup.html')
 
 @app.route('/form') 
 def form():
