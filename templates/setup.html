@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/login.css') }}">
+    <style>
+        body {
+            /* Set the background image for the entire page */
+            background-image: url('https://wallpapers.com/images/hd/high-resolution-sunset-sky-cloud-sbf3orpgxvsih66c.jpg');
+            /* Adjust background properties */
+            background-size: cover; /* Adjusts the image size to cover the entire background */
+            background-position: center; /* Centers the background image */
+            /* Optionally, you can set additional properties like background-repeat, etc. */
+        }
+        a#1 {
+            color: lightblue;
+            size: 88px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        a#2 {
+            color: blue;
+            size: 88px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <style>
+        h2 {
+            color: black; /* Set default text color for h2 */
+        }
+        .spotify-text {
+            color: limegreen; /* Set color for the word "Spotify" */
+        }
+    </style>
+    
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Welcome to the <span class="spotify-text">Spotify</span> Playlist Builder!</h2><br>
+            <a id="1" href="https://developer.spotify.com/" target="_blank">CLICK HERE first, and copy the long code, that's your token, after const =, and ignore the quotes, after you login with Spotify</a><br><br>
+            <a id="2" href="/form">Go Here Second, and paste in your token. </a><br>
+        </div>
+    </div>
+    </body>
+</html>
