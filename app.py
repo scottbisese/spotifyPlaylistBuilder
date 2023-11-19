@@ -39,8 +39,8 @@ nav = Navigation(app)
 # Initialize navigations
 # Navigations have a label and a reference that ties to one of the functions below
 nav.Bar('top', [
-    nav.Item('Form Example', 'form'),
-    nav.Item('Display Table Example', 'table')
+    nav.Item('Enter Token', 'form'),
+    nav.Item('API Responses', 'table')
 ])
 
 @app.route('/') 
