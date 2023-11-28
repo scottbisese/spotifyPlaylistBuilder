@@ -63,7 +63,7 @@ def optionsPage():
 def form_submit():
     # -------------------------------------------
     # Get Input from User
-    userToken = request.form['userSentenceInput']
+    #userToken = request.form['userSentenceInput']
     return redirect(url_for('optionsPage'))
 
 # =================================================================
