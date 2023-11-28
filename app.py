@@ -68,6 +68,27 @@ def form_submit():
     return redirect(url_for('optionsPage'))
 
 # =================================================================
+@app.route('/CreateAddPlaylist') 
+def CreateAddPlaylist():
+
+    # Get Top 10 Songs
+    top10Songs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
+
+    # Get URI of Top 10 Songs
+
+    # Get 10 Recommended Songs
+    recommendedSong10 = APICall(userToken, "v1/recommendations?limit=10&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA",'GET')
+    
+    # Get URI of 10 Recommended Songs
+
+    
+    # Create Playlist
+
+    # Add Playlist
+
+
+
+# =================================================================
 @app.route('/Top1Song') 
 def Top1Song():
 
