@@ -59,7 +59,7 @@ def optionsPage():
     return render_template('optionsPage.html')
 
 # This function handles data entry from the form
-@app.route('/form_submit') 
+@app.route('/form_submit', methods=['POST']) 
 def form_submit():
     # -------------------------------------------
     # Get Input from User
