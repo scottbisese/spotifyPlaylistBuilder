@@ -1,0 +1,52 @@
+/* Basic styling for the buttons */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /*background-color: #f4f4f4;*/  /*this is the code if you want a background color instead a link to a image */
+    background-image: url('https://s.yimg.com/ny/api/res/1.2/GoFGhzntdNS2hT7UzSLpAA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2021-12/3a396470-5f8d-11ec-b6ee-4633ccc47b24');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Header styles */
+.title-section {
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    padding: 10px;
+    background-color: #000000;
+    color: rgb(255, 253, 253);
+    margin: 0px;
+    font-size: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the buttons */
+button {
+    padding: 40px 30px; /* This line changes the sizes of boxes */
+    margin: 30px; /* this line of code gives spaces between the boxes */
+    font-size: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fffbfb;
+    color: rgb(7, 6, 6);
+    cursor: pointer;
+    
+}
+
+button:hover {
+    background-color: #4b9067; /* New color when the button is hovered */
+}
+
+
