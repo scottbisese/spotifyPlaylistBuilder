@@ -61,6 +61,7 @@ def optionsPage():
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
 def form_submit():
+    global userToken
     # -------------------------------------------
     # Get Input from User
     userToken = request.form['userSentenceInput']
