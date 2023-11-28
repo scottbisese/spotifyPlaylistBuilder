@@ -120,7 +120,7 @@ def table():
     cursor = conn.cursor()
 
     sql_query = f"""
-        SELECT * FROM SpotifyBuilderFinalProject.MVPPlaylistTable;
+        SELECT DISTINCT * FROM SpotifyBuilderFinalProject.MVPPlaylistTable;
         """
 
     cursor.execute(sql_query)
