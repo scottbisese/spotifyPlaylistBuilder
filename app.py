@@ -67,7 +67,7 @@ def form_submit():
     return redirect(url_for('optionsPage'))
 
 # =================================================================
-@app.route('/Top1Song', methods=['POST']) 
+@app.route('/Top1Song') 
 def Top1Song():
 
     response = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
