@@ -71,7 +71,7 @@ def form_submit():
 @app.route('/Top1Song') 
 def Top1Song():
 
-    response = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
+    response = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=1', 'GET')
 
     artistName = response['items'][0]["artists"][0]["name"]
     songName = response['items'][0]["name"]
