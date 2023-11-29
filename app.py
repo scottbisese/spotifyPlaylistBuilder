@@ -9,7 +9,6 @@ from flask_navigation import Navigation
 # Import Azure SQL helper code
 from azuresqlconnector import *
 
-from datetime import datetime
 
 userToken = None
 
@@ -92,7 +91,7 @@ def CreateAddPlaylist():
     user_id = user_info['id']
 
     playlist_data = {
-            'name': 'CS 188 Builder ' + str(datetime.now())[0:19],
+            'name': 'CS 188 Builder',
             'description': 'Playlist created by the tutorial on developer.spotify.com',
             'public': False
         }
