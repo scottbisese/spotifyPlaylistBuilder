@@ -47,6 +47,10 @@ def index():
 def form():
     return render_template('SubmitTokenPage.html')
 
+@app.route('/CompletePlaylist') 
+def form():
+    return render_template('CompletePlaylist.html')
+
 @app.route('/optionsPage') 
 def optionsPage():
     return render_template('optionsPage.html')
@@ -99,6 +103,8 @@ def CreateAddPlaylist():
     #----------------------------------------------
     # Add Playlist
     APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
+
+    return redirect(url_for('CompletePlaylist'))
 
 # =================================================================
 @app.route('/Top1Song') 
