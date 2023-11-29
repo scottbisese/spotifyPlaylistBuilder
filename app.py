@@ -9,8 +9,6 @@ from flask_navigation import Navigation
 # Import Azure SQL helper code
 from azuresqlconnector import *
 
-userToken = None
-
 # ============================================
 # Function to Call Sentimental AI API
 def APICall(useToken, endpoint, method, body=None):
@@ -45,33 +43,22 @@ nav.Bar('top', [
     nav.Item('API Responses', 'table')
 ])
 
-# =================================================================
 @app.route('/') 
 def index():
     return render_template('setup.html')
 
-@app.route('/SubmitToken') 
+@app.route('/form') 
 def form():
-    return render_template('SubmitTokenPage.html')
-
-@app.route('/optionsPage') 
-def optionsPage():
-    return render_template('optionsPage.html')
+    return render_template('newFormPage.html')
 
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
 def form_submit():
-    global userToken
     # -------------------------------------------
     # Get Input from User
-    userToken = request.form['userSentenceInput']
-    return redirect(url_for('optionsPage'))
+    form_data1 = request.form['userSentenceInput']
 
-# =================================================================
-@app.route('/Top1Song') 
-def Top1Song():
-
-    response = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=1', 'GET')
+    response = APICall(form_data1, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
 
     artistName = response['items'][0]["artists"][0]["name"]
     songName = response['items'][0]["name"]
@@ -109,8 +96,6 @@ def Top1Song():
     # Redirect back to form page after the form is submitted
     return redirect(url_for('table'))
 
-# =================================================================
-
 @app.route('/table') 
 def table():
 
@@ -120,7 +105,7 @@ def table():
     cursor = conn.cursor()
 
     sql_query = f"""
-        SELECT DISTINCT * FROM SpotifyBuilderFinalProject.MVPPlaylistTable;
+        SELECT * FROM SpotifyBuilderFinalProject.MVPPlaylistTable;
         """
 
     cursor.execute(sql_query)
