@@ -9,28 +9,21 @@ from flask_navigation import Navigation
 # Import Azure SQL helper code
 from azuresqlconnector import *
 
+from datetime import datetime
+
 userToken = None
 
 # ============================================
 # Function to Call Sentimental AI API
 def APICall(useToken, endpoint, method, body=None):
     headers = {
-        'Authorization': f'Bearer {useToken}'
-    }
+            'Authorization': f'Bearer {useToken}',
+            'Content-Type': 'application/json',
+        }
 
     url = f'https://api.spotify.com/{endpoint}'
-    
-    if method == 'GET':
-        response = requests.get(url, headers=headers)
-        return response.json()
-    elif method == 'POST':
-        print("Post Happens")
-        headers['Content-Type'] = 'application/json'
-        response = requests.post(url, headers=headers, json=body)
-    else:
-        raise ValueError(f"Unsupported HTTP method: {method}")
+    response = requests.request(method, url, headers=headers, json=body)
 
-    response.raise_for_status()
     return response.json()
 
 # ============================================
@@ -71,22 +64,41 @@ def form_submit():
 @app.route('/CreateAddPlaylist') 
 def CreateAddPlaylist():
 
+    songURIs = []
+    
+    #----------------------------------------------
     # Get Top 10 Songs
-    top10Songs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
+    top10Songs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=20', 'GET')
 
     # Get URI of Top 10 Songs
+    for iteration in range(0, len(top10Songs["items"])):
+        songURIs.append( top10Songs["items"][iteration]["uri"] )
 
+    #----------------------------------------------
     # Get 10 Recommended Songs
-    recommendedSong10 = APICall(userToken, "v1/recommendations?limit=10&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA",'GET')
+    recommendedSong10 = APICall(userToken, "v1/recommendations?limit=20&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA",'GET')
     
     # Get URI of 10 Recommended Songs
+    for iteration in range(0, len(recommendedSong10["tracks"])):
+        songURIs.append( recommendedSong10["tracks"][iteration]["uri"] )
 
-    
+    #----------------------------------------------    
     # Create Playlist
+    user_info = APICall(userToken, 'v1/me', 'GET')
+    user_id = user_info['id']
 
+    playlist_data = {
+            'name': 'CS 188 Builder ' + str(datetime.now())[0:19],
+            'description': 'Playlist created by the tutorial on developer.spotify.com',
+            'public': False
+        }
+    
+    playlist = APICall(userToken, f'v1/users/{user_id}/playlists', 'POST', body=playlist_data)
+    songURIs_str = ','.join(songURIs)
+
+    #----------------------------------------------
     # Add Playlist
-
-
+    APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
 
 # =================================================================
 @app.route('/Top1Song') 
