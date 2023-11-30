@@ -8,9 +8,14 @@ collections.Iterable = collections.abc.Iterable
 from flask_navigation import Navigation
 # Import Azure SQL helper code
 from azuresqlconnector import *
-
+import time
 
 userToken = None
+
+current_time_seconds = time.time() + 21600 # Time is in Central US
+current_struct_time = time.gmtime(current_time_seconds)
+formatted_time = time.strftime("%Y-%m-%d %H:%M:%S", current_struct_time)
+
 
 # ============================================
 # Function to Call Sentimental AI API
@@ -91,7 +96,7 @@ def CreateAddPlaylist():
     user_id = user_info['id']
 
     playlist_data = {
-            'name': 'CS 188 Builder',
+            'name': 'CS 188 Playlist: ' + str(formatted_time),
             'description': 'Playlist created by the tutorial on developer.spotify.com',
             'public': False
         }
