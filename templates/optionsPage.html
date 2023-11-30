@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Vertical Buttons</title> <!-- This is the line that changes the tab of what it can be called on the browser-->
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/login.css') }}">
+    <!--link rel="stylesheet" href="{{ url_for('static', filename= 'css/MiddleMan.css') }}"-->
+    <link href="css/MiddleMan.css" rel="stylesheet">
 </head>
 <body>
     <div class="title-section">     
@@ -13,11 +14,10 @@
     </div>
 
     <div class="button-container">
-        <br><br><a id="1" href="/Top1Song" target="_blank">Top 1 Song</a><br><br>
-        <br><br><a id="2" href="/CreateAddPlaylist" target="_blank">Top 1 Song</a><br><br>
+        <button type ="button" onclick="location.href='/Top1Song.html'">Click here to see your top song</button> <!-- This line of code give u a working button. Once you click on working button it takes you to spotify-->
+        <button type ="button" onclick="location.href='/CreateAddPlaylist.html'">Click here to make a Create Add Playlist</button>
     </div>
 
 </body>
 </html>
-
 
