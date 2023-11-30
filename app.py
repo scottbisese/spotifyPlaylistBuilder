@@ -47,7 +47,7 @@ def form():
     return render_template('SubmitTokenPage.html')
 
 @app.route('/CompletePlaylist') 
-def form():
+def CompletePlaylist():
     return render_template('CompletePlaylist.html')
 
 @app.route('/optionsPage') 
