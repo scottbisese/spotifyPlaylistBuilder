@@ -95,8 +95,9 @@ def CreateAddPlaylist():
     user_info = APICall(userToken, 'v1/me', 'GET')
     user_id = user_info['id']
 
+    playlistName = 'CS 188 Playlist: ' + str(formatted_time)
     playlist_data = {
-            'name': 'CS 188 Playlist: ' + str(formatted_time),
+            'name': playlistName,
             'description': 'Playlist created by the tutorial on developer.spotify.com',
             'public': False
         }
