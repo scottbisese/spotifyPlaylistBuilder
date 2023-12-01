@@ -151,7 +151,27 @@ def Top1Song():
             tempArtist = topSongs['items'][iteration]["name"]
             tempUserName = userInfo['display_name'] #Check Dict
 
-            addToSQLDB(tempSong, tempArtist, tempUserName)
+            # -------------------------------------------
+            # Initialize SQL connection
+            conn = SQLConnection()
+            conn = conn.getConnection()
+            cursor = conn.cursor()
+
+            # -------------------------------------------
+            # Add AI API Response to SQL Database
+            sql_query = f"""
+                INSERT INTO SpotifyBuilderFinalProject.MVPPlaylistTable
+                VALUES (
+                '{tempSong}',
+                '{tempArtist}',
+                '{tempUserName}'
+                );
+                """
+
+            cursor.execute(sql_query)
+
+            conn.commit()
+            cursor.close()
 
     return redirect(url_for('table'))
 
