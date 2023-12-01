@@ -204,3 +204,133 @@ DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 2
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:12:49] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:12:49] "GET /table HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:12:49] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:12] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:13] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:14] "GET /SubmitToken HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:14] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:31] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:31] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:31] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:33] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:34] "GET /table HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:19:34] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:20:19] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:20:19] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:20:19] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+ERROR:app:Exception on /Top1Song [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 156, in Top1Song
+    addToSQLDB(tempSong, tempArtist, tempUserName)
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 57, in addToSQLDB
+    cursor.execute(sql_query)
+pyodbc.ProgrammingError: ('42000', "[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Incorrect syntax near 's'. (102) (SQLExecDirectW)")
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:20:21] "[35m[1mGET /Top1Song HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:03] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:03] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:03] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+ERROR:app:Exception on /Top1Song [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 156, in Top1Song
+    addToSQLDB(tempSong, tempArtist, tempUserName)
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 57, in addToSQLDB
+    cursor.execute(sql_query)
+pyodbc.ProgrammingError: ('42000', "[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Incorrect syntax near 's'. (102) (SQLExecDirectW)")
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:05] "[35m[1mGET /Top1Song HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:27] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:27] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:27] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:29] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:30] "GET /table HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:21:30] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:25:54] "GET /SubmitToken HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:25:55] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:25:58] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:25:58] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:25:58] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+ERROR:app:Exception on /Top1Song [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 156, in Top1Song
+    addToSQLDB(tempSong, tempArtist, tempUserName)
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 57, in addToSQLDB
+    cursor.execute(sql_query)
+pyodbc.ProgrammingError: ('42000', "[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Incorrect syntax near 's'. (102) (SQLExecDirectW)")
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:26:01] "[35m[1mGET /Top1Song HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:26:21] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:26:21] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:26:21] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:26:24] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:26:24] "GET /table HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:26:24] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:36] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:36] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:36] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:39] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:39] "GET /table HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:40] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
