@@ -9,6 +9,9 @@ from flask_navigation import Navigation
 # Import Azure SQL helper code
 from azuresqlconnector import *
 import time
+import logging
+
+logging.basicConfig(filename='error.log', level=logging.DEBUG)
 
 userToken = None
 
@@ -196,6 +199,8 @@ def table():
     cursor.close()
 
     return render_template('table.html', records=records)
+
+
 
 if __name__ == '__main__': 
     app.run()
