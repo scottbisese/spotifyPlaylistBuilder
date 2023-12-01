@@ -144,14 +144,13 @@ def Top1Song():
     topSongs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
     userInfo = APICall(userToken, 'v1/me', 'GET')
 
-    if len(topSongs['items']) > 0:
 
-        for iteration in range(0, len(topSongs['items'])):
-            tempSong = topSongs['items'][iteration]["artists"][0]["name"]
-            tempArtist = topSongs['items'][iteration]["name"]
-            tempUserName = userInfo['display_name'] #Check Dict
+    for iteration in range(0, len(topSongs['items'])):
+        tempSong = topSongs['items'][iteration]["artists"][0]["name"]
+        tempArtist = topSongs['items'][iteration]["name"]
+        tempUserName = userInfo['display_name'] #Check Dict
 
-            addToSQLDB(tempSong, tempArtist, tempUserName)
+        addToSQLDB(tempSong, tempArtist, tempUserName)
 
     return redirect(url_for('table'))
 
