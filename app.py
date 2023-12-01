@@ -19,14 +19,13 @@ formatted_time = time.strftime("%Y-%m-%d %H:%M:%S", current_struct_time)
 # ============================================
 def removeSpecialChars(sentence):
 
-    sentence = sentence.lower()
     strippedSentence = ""
 
     # Loops through each character of the sentence
     for character in sentence:
 
         # (If character is between a to z on ASCII Table) or (character is a space " ")
-        if (ord(character) > 96 and ord(character) < 123) or ord(character) == 32:
+        if ((ord(character) > 96 and ord(character) < 123) or (ord(character) > 64 and ord(character) < 91)) or ord(character) == 32:
             strippedSentence += character
 
     return strippedSentence
