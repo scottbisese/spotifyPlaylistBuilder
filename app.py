@@ -16,6 +16,19 @@ current_time_seconds = time.time() + 21600 # Time is in Central US
 current_struct_time = time.gmtime(current_time_seconds)
 formatted_time = time.strftime("%Y-%m-%d %H:%M:%S", current_struct_time)
 
+# ============================================
+def removeSpecialChars(sentence):
+
+    strippedSentence = ""
+
+    # Loops through each character of the sentence
+    for character in sentence:
+
+        # (If character is between a to z on ASCII Table) or (character is a space " ")
+        if ((ord(character) > 96 and ord(character) < 123) or (ord(character) > 64 and ord(character) < 91)) or ord(character) == 32:
+            strippedSentence += character
+
+    return strippedSentence
 
 # ============================================
 # Function to Call Spotify API
@@ -147,8 +160,13 @@ def Top1Song():
 
     for iteration in range(0, len(topSongs['items'])):
         tempSong = topSongs['items'][iteration]["artists"][0]["name"]
+        tempSong = removeSpecialChars(tempSong)
+
         tempArtist = topSongs['items'][iteration]["name"]
-        tempUserName = userInfo['display_name'] #Check Dict
+        tempArtist = removeSpecialChars(tempArtist)
+
+        tempUserName = userInfo['display_name']
+        tempUserName = removeSpecialChars(tempUserName)
 
         addToSQLDB(tempSong, tempArtist, tempUserName)
 
