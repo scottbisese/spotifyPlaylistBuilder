@@ -19,6 +19,7 @@
         <tr>
             <th>SongName</th>
             <th>Song Aritist</th>
+            <th>UserName</th>
         </tr>
 
         <!-- Loop through and display all rows from the SQL query -->
@@ -26,6 +27,7 @@
         <tr>
             <td>{{ row.SongName }}</td>
             <td>{{ row.SongAritist }}</td>
+            <td>{{ row.UserName }}</td>
         </tr>
         {% endfor %}
 
