@@ -18,7 +18,7 @@ formatted_time = time.strftime("%Y-%m-%d %H:%M:%S", current_struct_time)
 
 
 # ============================================
-# Function to Call Sentimental AI API
+# Function to Call Spotify API
 def APICall(useToken, endpoint, method, body=None):
     headers = {
             'Authorization': f'Bearer {useToken}',
@@ -29,6 +29,32 @@ def APICall(useToken, endpoint, method, body=None):
     response = requests.request(method, url, headers=headers, json=body)
 
     return response.json()
+
+# =================================================================
+# Add Parameters given to SQL DB
+def addToSQLDB(songName, artistName, userName):
+    
+    # -------------------------------------------
+    # Initialize SQL connection
+    conn = SQLConnection()
+    conn = conn.getConnection()
+    cursor = conn.cursor()
+
+    # -------------------------------------------
+    # Add AI API Response to SQL Database
+    sql_query = f"""
+        INSERT INTO SpotifyBuilderFinalProject.MVPPlaylistTable
+        VALUES (
+         '{songName}',
+         '{artistName}',
+         '{userName}'
+         );
+        """
+
+    cursor.execute(sql_query)
+
+    conn.commit()
+    cursor.close()
 
 # ============================================
 app = Flask(__name__)
@@ -115,42 +141,18 @@ def CreateAddPlaylist():
 @app.route('/Top1Song') 
 def Top1Song():
 
-    response = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=1', 'GET')
+    topSongs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
+    userInfo = APICall(userToken, 'v1/me', 'GET')
 
-    artistName = response['items'][0]["artists"][0]["name"]
-    songName = response['items'][0]["name"]
+    if len(topSongs['items']) > 0:
 
-    # -------------------------------------------
-    # Initialize SQL connection
-    conn = SQLConnection()
-    conn = conn.getConnection()
-    cursor = conn.cursor()
+        for iteration in range(0, len(topSongs['items'])):
+            tempSong = topSongs['items'][iteration]["artists"][0]["name"]
+            tempArtist = topSongs['items'][iteration]["name"]
+            tempUserName = userInfo['display_name'] #Check Dict
 
-    # -------------------------------------------
-    # Add AI API Response to SQL Database
-    sql_query = f"""
-        INSERT INTO SpotifyBuilderFinalProject.MVPPlaylistTable
-        VALUES (
-         '{songName}',
-         '{artistName}'
-         );
-        """
+            addToSQLDB(tempSong, tempArtist, tempUserName)
 
-    cursor.execute(sql_query)
-
-    # -------------------------------------------
-    print("Data submitted. . .")
-
-    # IMPORTANT: The connection must commit the changes.
-    conn.commit()
-
-    print("Changes commited.")
-
-    cursor.close()
-
-    print("Redirecting. . .")
-
-    # Redirect back to form page after the form is submitted
     return redirect(url_for('table'))
 
 # =================================================================
