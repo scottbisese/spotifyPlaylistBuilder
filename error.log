@@ -334,3 +334,16 @@ DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 2
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:39] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:39] "GET /table HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:29:40] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:14] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:14] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:14] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:19] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:19] "GET /table HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:20] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
