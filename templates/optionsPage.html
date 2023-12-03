@@ -6,16 +6,16 @@
     <meta charset="UTF-8">
     <title>Vertical Buttons</title> <!-- This is the line that changes the tab of what it can be called on the browser-->
     <!--link rel="stylesheet" href="{{ url_for('static', filename= 'css/MiddleMan.css') }}"-->
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/MiddleMan.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/options.css') }}">
 </head>
 <body>
     <div class="title-section">     
-    <h1>Things to do!</h1> <!-- This is the title of the page -->
+    <h1>Do something!</h1> <!-- This is the title of the page -->
     </div>
 
     <div class="button-container">
-        <button type ="button" onclick="location.href='/Top1Song'">Click here to see your top song</button> <!-- This line of code give u a working button. Once you click on working button it takes you to spotify-->
-        <button type ="button" onclick="location.href='/CreateAddPlaylist'">Click here to make a Create Add Playlist</button>
+      <button type="button" onclick="location.href='/Top1Song'">See your top songs!</button>
+      <button type="button" onclick="location.href='/playlist_preview'">Preview your playlist and then save to Spotify!</button>
     </div>
 
 </body>
