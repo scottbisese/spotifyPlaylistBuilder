@@ -6,20 +6,20 @@
     <meta charset="UTF-8">
     <title>Vertical Buttons</title> <!-- This is the line that changes the tab of what it can be called on the browser-->
     <!--link rel="stylesheet" href="{{ url_for('static', filename= 'css/MiddleMan.css') }}"-->
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/MiddleMan.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/options.css') }}">
 </head>
 <body>
     <div class="title-section">     
-    <h1>Things to do!</h1> <!-- This is the title of the page -->
+    <h1>Do something!</h1> <!-- This is the title of the page -->
     </div>
 
     <div class="button-container">
         <form action="/CreateAddPlaylist" method="post"> <!-- Added a form element with the action attribute -->
             <label for="playlistName">Enter Playlist Name:</label>
             <input type="text" id="playlistName" name="playlistName" required>
-            <button type="submit">Click here to create and add playlist</button>
+            <button type="submit">Type playlist name and hit ENTER key!</button>
         </form>
-        <button type="button" onclick="location.href='/Top1Song'">Click here to see your top song</button>
+        <button type="button" onclick="location.href='/Top1Song'">See your top songs!</button>
     </div>
 
 </body>

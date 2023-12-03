@@ -437,3 +437,52 @@ DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/playlists/5DX
 INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:19] "[32mPOST /CreateAddPlaylist HTTP/1.1[0m" 302 -
 INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:19] "GET /CompletePlaylist HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:19] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:51:36] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:51:36] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:51:37] "GET /static/css/options.css HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=20 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/recommendations?limit=20&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/users/12174931412/playlists HTTP/1.1" 201 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/playlists/7eSl4QWTki9xkyPj9ucHfW/tracks?uris=spotify:track:1RyIA87KYGavtK0xiVXwDH,spotify:track:1mtEOpVcrP2QaxcsU9uKoW,spotify:track:4IBOCVRedkQ3obCIaTqcxm,spotify:track:4BZOkAttqGJAXC1KVGQ89y,spotify:track:1fPoQKKaVJfYmW6WnrpYWC,spotify:track:2HNsVrigDwsrXBIaE2ZHd4,spotify:track:2Rh2RQOFkjqdyIFVzgdmfH,spotify:track:2bW59KVppXh5Ois2LYyZKx,spotify:track:3mkUKJjYRHqjj45vuDdIYO,spotify:track:4Moi7ieLJMYEXuRIIIWajd,spotify:track:5eVERkVvJKBgV2FziCoLDE,spotify:track:7Ay8wl9XzBJWSrpWZd20SM,spotify:track:5DIaZd2T8XohPHN72PkxTq,spotify:track:2y38r30VlwZjVihZSzHlJh,spotify:track:3hGlWiW2Hx00DKJ4CoDdHE,spotify:track:4c9u4ruTL1xWv2YcnS8AjN,spotify:track:5AYywS6RwVFaxCw28WCjDG,spotify:track:6GQ6rapsknPIutGbpv0DTR,spotify:track:27fCfMW0mXSK5PQLSxwxBE,spotify:track:358K63AaaKKNFryT2zJ2Ib,spotify:track:5yDL13y5giogKs2fSNf7sj,spotify:track:7JN08R8tvjtECrB6zBtSte,spotify:track:7lUE02KHkZM44BZgjCaWRO,spotify:track:0dXNQ8dckG4eYfEtq9zcva,spotify:track:5Bd3biotsdxkuENxrWxFmM,spotify:track:3DXXKDbbZKyAZfNb96ST3q,spotify:track:5CjkDxZMheZ1EvSW4uSR5r,spotify:track:2J4T0IOIZjQhLzosKPR2PN,spotify:track:7nRmfGNhHKEEu5o8yFXLXt,spotify:track:7uEb5EauA2QnDcPQHYcxIF,spotify:track:3dNjUFt6EFU4Gq6Q5vfJqf,spotify:track:6flhrkPIIqB0zU8j2T2yyc,spotify:track:2pxM1i3B5CpUZNTy8laF3h,spotify:track:644es5aYPJghtZLjM1rmSP,spotify:track:46hsqFjoa0eOxFL1FLIY3V,spotify:track:1P30rGmTCmtkYzjddyfpss,spotify:track:5Fxizz8oqR40JA4kLh79Ot,spotify:track:2z4U9d5OAA4YLNXoCgioxo,spotify:track:6eiERZXZqMNYk7RjqR9Ucd,spotify:track:4kknmwiIegPG6mI4B71tku HTTP/1.1" 201 None
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:51:48] "[32mPOST /CreateAddPlaylist HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:51:48] "GET /CompletePlaylist HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:51:49] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:43] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:43] "[36mGET /static/css/options.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:44] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:44] "[36mGET /static/css/options.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:45] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:45] "[36mGET /static/css/options.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:46] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:53:46] "[36mGET /static/css/options.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:54:35] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:54:35] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:54:35] "[36mGET /static/css/options.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:54:55] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:54:55] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:54:55] "[36mGET /static/css/options.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=20 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/recommendations?limit=20&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/users/12174931412/playlists HTTP/1.1" 201 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/playlists/62EB7JQcF4mV3LEqrrhw42/tracks?uris=spotify:track:1RyIA87KYGavtK0xiVXwDH,spotify:track:1mtEOpVcrP2QaxcsU9uKoW,spotify:track:4IBOCVRedkQ3obCIaTqcxm,spotify:track:4BZOkAttqGJAXC1KVGQ89y,spotify:track:1fPoQKKaVJfYmW6WnrpYWC,spotify:track:2HNsVrigDwsrXBIaE2ZHd4,spotify:track:2Rh2RQOFkjqdyIFVzgdmfH,spotify:track:2bW59KVppXh5Ois2LYyZKx,spotify:track:3mkUKJjYRHqjj45vuDdIYO,spotify:track:4Moi7ieLJMYEXuRIIIWajd,spotify:track:5eVERkVvJKBgV2FziCoLDE,spotify:track:7Ay8wl9XzBJWSrpWZd20SM,spotify:track:5DIaZd2T8XohPHN72PkxTq,spotify:track:2y38r30VlwZjVihZSzHlJh,spotify:track:3hGlWiW2Hx00DKJ4CoDdHE,spotify:track:4c9u4ruTL1xWv2YcnS8AjN,spotify:track:5AYywS6RwVFaxCw28WCjDG,spotify:track:6GQ6rapsknPIutGbpv0DTR,spotify:track:27fCfMW0mXSK5PQLSxwxBE,spotify:track:358K63AaaKKNFryT2zJ2Ib,spotify:track:13wYXGimJ5fANFu0y2pqG1,spotify:track:3Ih7J3vNiaoOZfkXCtEd7j,spotify:track:6mo6D7Jh6guYnbcq7wZVlg,spotify:track:7o1Pm9jpH0wFpN5g793Lnq,spotify:track:5Pgwi0iizu96RHxJ4xL3SH,spotify:track:1L0EOspQBQnJEHvGxUj6yj,spotify:track:68oxELAW6URbwJCKmBiNDa,spotify:track:2S2od3hT7ceytw7d1pTRuE,spotify:track:2vB5NrX3ZtQjirRnkNTPAD,spotify:track:1LM5zQv5pBKPyO7rm7Uz6U,spotify:track:0P3TUNfXfhdJ4rgdZAUL6i,spotify:track:3CWuU5kIw8zsWJTcgreUwl,spotify:track:1OacCHsUQIAuUtlqv4I0c2,spotify:track:2J4T0IOIZjQhLzosKPR2PN,spotify:track:00Ci0EXS4fNPnkTbS6wkOh,spotify:track:4hB1M0RTIlrbC1DwA6XJ9Q,spotify:track:65R0xYBefZnX9ho6ypOADM,spotify:track:4kknmwiIegPG6mI4B71tku,spotify:track:0ipcmHor30Y8p6hCd8QUVq,spotify:track:6Gfmj0HbpvxTdW0sdlzTDU HTTP/1.1" 201 None
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:55:05] "[32mPOST /CreateAddPlaylist HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:55:05] "GET /CompletePlaylist HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:55:05] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
