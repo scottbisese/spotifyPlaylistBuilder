@@ -347,3 +347,93 @@ DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 2
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:19] "[32mGET /Top1Song HTTP/1.1[0m" 302 -
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:19] "GET /table HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [30/Nov/2023 22:39:20] "[36mGET /static/css/table.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:32] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:32] "GET /static/css/login.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:51] "GET /SubmitToken HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:51] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:54] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:54] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:54] "GET /static/css/MiddleMan.css HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=10 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+ERROR:app:Exception on /Top1Song [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 175, in Top1Song
+    addToSQLDB(tempSong, tempArtist, tempUserName)
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 57, in addToSQLDB
+    conn = conn.getConnection()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/azuresqlconnector.py", line 22, in getConnection
+    self.__connection = pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.ProgrammingError: ('42000', "[42000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Cannot open server 'sqlservertrujillosamuel01' requested by the login. Client with IP address '216.82.30.185' is not allowed to access the server.  To enable access, use the Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect. (40615) (SQLDriverConnect)")
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:17:58] "[35m[1mGET /Top1Song HTTP/1.1[0m" 500 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=20 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/recommendations?limit=20&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/users/12174931412/playlists HTTP/1.1" 201 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/playlists/0IPcXznYdQonfJp5BoBKt0/tracks?uris=spotify:track:1RyIA87KYGavtK0xiVXwDH,spotify:track:1mtEOpVcrP2QaxcsU9uKoW,spotify:track:4IBOCVRedkQ3obCIaTqcxm,spotify:track:4BZOkAttqGJAXC1KVGQ89y,spotify:track:1fPoQKKaVJfYmW6WnrpYWC,spotify:track:2HNsVrigDwsrXBIaE2ZHd4,spotify:track:2Rh2RQOFkjqdyIFVzgdmfH,spotify:track:2bW59KVppXh5Ois2LYyZKx,spotify:track:3mkUKJjYRHqjj45vuDdIYO,spotify:track:4Moi7ieLJMYEXuRIIIWajd,spotify:track:5eVERkVvJKBgV2FziCoLDE,spotify:track:7Ay8wl9XzBJWSrpWZd20SM,spotify:track:5DIaZd2T8XohPHN72PkxTq,spotify:track:2y38r30VlwZjVihZSzHlJh,spotify:track:3hGlWiW2Hx00DKJ4CoDdHE,spotify:track:4c9u4ruTL1xWv2YcnS8AjN,spotify:track:5AYywS6RwVFaxCw28WCjDG,spotify:track:6GQ6rapsknPIutGbpv0DTR,spotify:track:27fCfMW0mXSK5PQLSxwxBE,spotify:track:358K63AaaKKNFryT2zJ2Ib,spotify:track:7aohVuDa6zh18z5FIGcYqV,spotify:track:1H9rGpQ1Xqh45Y13mzfJvU,spotify:track:6qUjY7JsuQYxn99qfOAQyB,spotify:track:6zxIxHKXIXIeBDQJ4tML12,spotify:track:5DF2KFDVeC7wF5CXipl9WN,spotify:track:6CBLS6BxGCsbzKdSiKSxHC,spotify:track:1nDCD9uIJVy9Eq7lcBiwYW,spotify:track:5fdzPMOxUqVJYSzTP5cFP7,spotify:track:7ySUcLPVX7KudhnmNcgY2D,spotify:track:5grzlt83cKal2JPOiGeeuv,spotify:track:3I7krC8kr0gFR7P6vInR1I,spotify:track:4CLPNURPcKztF9RRdcWLGP,spotify:track:2MvvoeRt8NcOXWESkxWn3g,spotify:track:2g86T3zeI1mP5OZdAPenpx,spotify:track:7yYWlhU8uy27bLV6gxPcFD,spotify:track:2gDPe8PE5re1hcxHGxMz7A,spotify:track:07nH4ifBxUB4lZcsf44Brn,spotify:track:2cl3STzwTmCH93choV3TCl,spotify:track:1UiWd0TDLQnKfME3HKrCX8,spotify:track:3kMrazSvILsgcwtidZd1Qd HTTP/1.1" 201 None
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:18:04] "[32mGET /CreateAddPlaylist HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:18:04] "GET /CompletePlaylist HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:18:04] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+ERROR:app:Exception on /CreateAddPlaylist [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/boulevardjenkines/SpotifyPlaylistBuilder_FP/app.py", line 160, in CreateAddPlaylist
+    APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
+                                      ^^^^^^^^
+UnboundLocalError: cannot access local variable 'playlist' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:06] "[35m[1mGET /CreateAddPlaylist HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:11] "[32mPOST /form_submit HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:11] "GET /optionsPage HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:11] "[36mGET /static/css/MiddleMan.css HTTP/1.1[0m" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me/top/tracks?time_range=short_term&limit=20 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/recommendations?limit=20&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "GET /v1/me HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/users/12174931412/playlists HTTP/1.1" 201 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.spotify.com:443
+DEBUG:urllib3.connectionpool:https://api.spotify.com:443 "POST /v1/playlists/5DXhZV6MEgxACsd2QR2zMS/tracks?uris=spotify:track:1RyIA87KYGavtK0xiVXwDH,spotify:track:1mtEOpVcrP2QaxcsU9uKoW,spotify:track:4IBOCVRedkQ3obCIaTqcxm,spotify:track:4BZOkAttqGJAXC1KVGQ89y,spotify:track:1fPoQKKaVJfYmW6WnrpYWC,spotify:track:2HNsVrigDwsrXBIaE2ZHd4,spotify:track:2Rh2RQOFkjqdyIFVzgdmfH,spotify:track:2bW59KVppXh5Ois2LYyZKx,spotify:track:3mkUKJjYRHqjj45vuDdIYO,spotify:track:4Moi7ieLJMYEXuRIIIWajd,spotify:track:5eVERkVvJKBgV2FziCoLDE,spotify:track:7Ay8wl9XzBJWSrpWZd20SM,spotify:track:5DIaZd2T8XohPHN72PkxTq,spotify:track:2y38r30VlwZjVihZSzHlJh,spotify:track:3hGlWiW2Hx00DKJ4CoDdHE,spotify:track:4c9u4ruTL1xWv2YcnS8AjN,spotify:track:5AYywS6RwVFaxCw28WCjDG,spotify:track:6GQ6rapsknPIutGbpv0DTR,spotify:track:27fCfMW0mXSK5PQLSxwxBE,spotify:track:358K63AaaKKNFryT2zJ2Ib,spotify:track:4KTtYhxFtFL7mBwnjkKfLm,spotify:track:6EtKlIQmGPB9SX8UjDJG5s,spotify:track:1brH9m4Q2LHTuwxaKoMTn5,spotify:track:34SQ0QfLSR316d8KL2zkuZ,spotify:track:17yOK7gmxYIhgmp6egnuVl,spotify:track:7oJBVDLBCLZp62hVGMJNlX,spotify:track:4Nnx7d1MHiNi367p0BJsUv,spotify:track:7yYWlhU8uy27bLV6gxPcFD,spotify:track:4AJZBScQheg1RyZD8mMdtp,spotify:track:2ED1VZ53iRImo252U2PEsu,spotify:track:7H6lDjQ509hVPiN72wlwzM,spotify:track:3DNRdudZ2SstnDCVKFdXxG,spotify:track:2S2od3hT7ceytw7d1pTRuE,spotify:track:5790MR71sz6i4fyz9dZBtE,spotify:track:48tAdjG4ng2JfECa7OQujk,spotify:track:5ym3bCHNv6OoDuQ96lNu3y,spotify:track:2IHWabwhSEdpB5XEhaz9zx,spotify:track:5YS9gUKBLEOBq0eVZl2klr,spotify:track:0itndpPjxQrWj1mDENoKmG,spotify:track:1D066zixBwqFYqBhKgdPzp HTTP/1.1" 201 None
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:19] "[32mPOST /CreateAddPlaylist HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:19] "GET /CompletePlaylist HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2023 10:37:19] "[36mGET /static/css/login.css HTTP/1.1[0m" 304 -

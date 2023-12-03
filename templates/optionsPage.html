@@ -14,8 +14,12 @@
     </div>
 
     <div class="button-container">
-        <button type ="button" onclick="location.href='/Top1Song'">Click here to see your top song</button> <!-- This line of code give u a working button. Once you click on working button it takes you to spotify-->
-        <button type ="button" onclick="location.href='/CreateAddPlaylist'">Click here to make a Create Add Playlist</button>
+        <form action="/CreateAddPlaylist" method="post"> <!-- Added a form element with the action attribute -->
+            <label for="playlistName">Enter Playlist Name:</label>
+            <input type="text" id="playlistName" name="playlistName" required>
+            <button type="submit">Click here to create and add playlist</button>
+        </form>
+        <button type="button" onclick="location.href='/Top1Song'">Click here to see your top song</button>
     </div>
 
 </body>
