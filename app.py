@@ -8,17 +8,12 @@ collections.Iterable = collections.abc.Iterable
 from flask_navigation import Navigation
 # Import Azure SQL helper code
 from azuresqlconnector import *
-import time
-import logging
+#import logging
 
 logging.basicConfig(filename='error.log', level=logging.DEBUG)
 
 userToken = None
 recently_created_playlist = None
-
-current_time_seconds = time.time() + 21600 # Time is in Central US
-current_struct_time = time.gmtime(current_time_seconds)
-formatted_time = time.strftime("%Y-%m-%d %H:%M:%S", current_struct_time)
 
 # ============================================
 def removeSpecialChars(sentence):
