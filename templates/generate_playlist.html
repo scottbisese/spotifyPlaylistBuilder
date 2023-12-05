@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Playlist</title>
+   <!-- <link rel="stylesheet" href="generate_playlist.css"> -->
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='generate_playlist.css') }}"> ]
+
+</head>
+<body>
+    <h1>Create a Spotify Playlist</h1>
+    <form action="/generate_playlist" method="post">
+        <label for="artist">Artist Name:</label>
+        <input type="text" id="artist_form" name="artist_form" placeholder="Enter the name of an artist"><br><br>
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre_form" name="genre_form" placeholder="Enter a genre"><br><br>
+
+        <label for="track">Track Name:</label>
+        <input type="text" id="track_form" name="track_form" placeholder="Enter the name of a song"><br><br>
+
+       <!-- <button type ="button" onclick="location.href='/generate_playlist'">Generate Playlist</button> -->
+        <input type="submit" onclick="location.href='/generate_playlist'" value="Generate Playlist">
+        <!-- <input type="submit" value="Generate Playlist"> -->
+    </form>
+</body>
+</html>

@@ -8,12 +8,9 @@ collections.Iterable = collections.abc.Iterable
 from flask_navigation import Navigation
 # Import Azure SQL helper code
 from azuresqlconnector import *
-import logging
-
-logging.basicConfig(filename='error.log', level=logging.DEBUG)
 
 userToken = None
-recently_created_playlist = None
+
 
 # ============================================
 def removeSpecialChars(sentence):
@@ -98,6 +95,10 @@ def CompletePlaylist():
 def optionsPage():
     return render_template('optionsPage.html')
 
+@app.route('/RecPlaylist')
+def RecPlaylist():
+    return redirect(url_for('generate_playlist'))
+
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
 def form_submit():
@@ -108,71 +109,49 @@ def form_submit():
     return redirect(url_for('optionsPage'))
 
 # =================================================================
-@app.route('/CreateAddPlaylist', methods=['POST'])
+@app.route('/CreateAddPlaylist') 
 def CreateAddPlaylist():
-    global recently_created_playlist
 
-    if request.method == 'POST':
-        playlist_name = request.form.get('playlistName')
+    songURIs = []
+    
+    #----------------------------------------------
+    # Get Top 10 Songs
+    top10Songs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=20', 'GET')
 
-        # ----------------------------------------------
-        # Get Top 10 Songs
-        songURIs = []  # Define the songURIs list
+    # Get URI of Top 10 Songs
+    for iteration in range(0, len(top10Songs["items"])):
+        songURIs.append( top10Songs["items"][iteration]["uri"] )
 
-        top10Songs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=20', 'GET')
+    #----------------------------------------------
+    # Get 10 Recommended Songs
+    recommendedSong10 = APICall(userToken, "v1/recommendations?limit=20&market=ES&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA",'GET')
+    
+    # Get URI of 10 Recommended Songs
+    for iteration in range(0, len(recommendedSong10["tracks"])):
+        songURIs.append( recommendedSong10["tracks"][iteration]["uri"] )
 
-        if 'items' in top10Songs:
-            # Get URI of Top 10 Songs
-            for iteration in range(0, len(top10Songs["items"])):
-                songURIs.append(top10Songs["items"][iteration]["uri"])
-        else:
-            print("Unexpected response structure:", top10Songs)
+    #----------------------------------------------    
+    # Create Playlist
+    user_info = APICall(userToken, 'v1/me', 'GET')
+    user_id = user_info['id']
 
-        # ---------------------------- Create Playlist ---------------
-
-        user_info = APICall(userToken, 'v1/me', 'GET')
-
-        if 'id' in user_info:
-            user_id = user_info['id']
-        else:
-            print("Unexpected response structure for user_info:", user_info)
-            return redirect(url_for('CompletePlaylist'))  # or handle this error in a way that fits your application's logic
-
-        playlist_data = {
-            'name': playlist_name,  # Use the playlist name obtained from the form
-            'description': 'Playlist created by Team 8 Ballers',
+    playlistName = 'CS 188 Playlist: '
+    playlist_data = {
+            'name': playlistName,
+            'description': 'Playlist created by the tutorial on developer.spotify.com',
             'public': False
         }
+    
+    playlist = APICall(userToken, f'v1/users/{user_id}/playlists', 'POST', body=playlist_data)
+    songURIs_str = ','.join(songURIs)
 
-        # Create Playlist
-        playlist = APICall(userToken, f'v1/users/{user_id}/playlists', 'POST', body=playlist_data)
+    #----------------------------------------------
+    # Add Playlist
+    APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
 
-        songURIs_str = ','.join(songURIs)
-
-        # Add Playlist
-        APICall(userToken, f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
-
-        # Store the recently created playlist data
-        recently_created_playlist = {'id': playlist["id"], 'name': playlist_name}
-
-        # Render the playlist preview page with the iframe
-        return render_template('CompletePlaylist.html', playlist_id=playlist["id"])
-
-    # Redirect to CompletePlaylist in case of a GET request or other scenarios
-    return redirect(url_for('CompletePlaylist.html'))
+    return redirect(url_for('CompletePlaylist'))
 
 # =================================================================
-@app.route('/playlist_preview', methods=['GET', 'POST'])
-def playlist_embed():
-    global recently_created_playlist
-
-    # Use the recently created playlist data or any other logic to get the desired playlist data
-    playlist_data = recently_created_playlist or {'id': '0Pg6rxgKT92ZxESm2zHaqh', 'name': 'Default Playlist'}
-    playlist_url = f'https://open.spotify.com/embed/playlist/{playlist_data["id"]}?utm_source=generator&theme=0'
-    print(f'Playlist URL: {playlist_url}')  # Add this line for debugging
-    return render_template('playlist_preview.html', playlist_url=playlist_url, playlist_name=playlist_data["name"])
-
-
 @app.route('/Top1Song') 
 def Top1Song():
 
@@ -193,6 +172,116 @@ def Top1Song():
         addToSQLDB(tempSong, tempArtist, tempUserName)
 
     return redirect(url_for('table'))
+
+# =====================ZAMA DEC 1============================================
+
+
+def get_artist_id(access_token, artist_name):
+    # Spotify search URL for artists
+    search_url = f'https://api.spotify.com/v1/search?q={artist_name}&type=artist'
+
+    # Authorization header with the access token
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+
+    try:
+        # Make a GET request to search for the artist
+        responses = requests.get(search_url, headers=headers)
+
+        # Check if the request was successful (status code 200)
+        if responses.status_code == 200:
+            data = APICall(userToken, search_url, "GET")
+            # Extract the artist ID from the response
+            if 'artists' in data and 'items' in data['artists'] and data['artists']['items']:
+                artist_id = data['artists']['items'][0]['id']  # Take the first artist's ID
+                return artist_id
+            else:
+                # print(f"No artist found with the name '{artist_name}'")
+                return None
+        else:
+            # print(f"Error: {responses.status_code} - {responses.text}")
+            return None
+
+    except requests.RequestException as e:
+        # print(f"Error fetching data: {e}")
+        return None
+    
+def get_track_id(access_token, track_name):
+    # Spotify search URL for artists
+    search_url = f'https://api.spotify.com/v1/search?q={track_name}&type=track'
+
+    # Authorization header with the access token
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+
+    try:
+        # Make a GET request to search for the artist
+        responses = requests.get(search_url, headers=headers)
+
+        # Check if the request was successful (status code 200)
+        if responses.status_code == 200:
+            data = APICall(userToken, search_url, "GET")
+            # Extract the artist ID from the response
+            if 'tracks' in data and 'items' in data['tracks'] and data['tracks']['items']:
+                track_id = data['tracks']['items'][0]['id']  # Take the first track's ID
+                return track_id
+            else:
+                # print(f"No artist found with the name '{track_name}'")
+                return None
+        else:
+            # print(f"Error: {responses.status_code} - {responses.text}")
+            return None
+
+    except requests.RequestException as e:
+        # print(f"Error fetching data: {e}")
+        return None
+
+@app.route('/redirect2') 
+def redirect2():
+    return render_template('redirect2.html')
+
+@app.route('/generate_playlist', methods=['POST'])
+def generate_playlist():
+    artist_names = request.form['artist_form']
+    genre = request.form['genre_form']
+    track_names = request.form['track_form']
+    
+    songURIs = []
+
+    id_of_artist = get_artist_id(userToken, artist_names)
+    id_of_track = get_track_id(userToken, track_names)
+    
+     #----------------------------------------------
+    # Get 10 Recommended Songs
+    ZamaRecommendedSong10 = APICall(userToken, f"v1/recommendations?seed_artists={id_of_artist}&seed_genres={genre}&seed_tracks={id_of_track}",'GET')   
+
+    # Get URI of 10 Recommended Songs
+    for iteration in range(0, len(ZamaRecommendedSong10["tracks"])):
+        songURIs.append(ZamaRecommendedSong10["tracks"][iteration]["uri"] )
+
+    #----------------------------------------------    
+    # Create Playlist
+    user_info = APICall(userToken, 'v1/me', 'GET')
+    user_id = user_info['id']
+
+    playlistName = 'Zama"s Playlist: ' 
+    playlist_data = {
+            'name': playlistName,
+            'description': 'Playlist created by the tutorial on developer.spotify.com',
+            'public': False
+        }
+    
+    playlist = APICall(userToken, f'v1/users/{user_id}/playlists', 'POST', body=playlist_data)
+    songURIs_str = ','.join(songURIs)
+
+    #----------------------------------------------
+    # Add Playlist
+    APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
+
+    return redirect(url_for('redirect2'))
+
 
 # =================================================================
 
@@ -217,8 +306,6 @@ def table():
     cursor.close()
 
     return render_template('table.html', records=records)
-
-
 
 if __name__ == '__main__': 
     app.run()
