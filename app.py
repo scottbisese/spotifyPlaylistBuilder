@@ -97,7 +97,7 @@ def optionsPage():
 
 @app.route('/RecPlaylist')
 def RecPlaylist():
-    return redirect(url_for('generate_playlist'))
+    return render_template('generate_playlist.html')
 
 # This function handles data entry from the form
 @app.route('/form_submit', methods=['POST']) 
