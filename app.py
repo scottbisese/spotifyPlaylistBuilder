@@ -178,65 +178,26 @@ def Top1Song():
 
 def get_artist_id(access_token, artist_name):
     # Spotify search URL for artists
-    search_url = f'https://api.spotify.com/v1/search?q={artist_name}&type=artist'
+    #Tove Lo
 
-    # Authorization header with the access token
-    headers = {
-        'Authorization': f'Bearer {access_token}'
-    }
-
-    try:
-        # Make a GET request to search for the artist
-        responses = requests.get(search_url, headers=headers)
-
-        # Check if the request was successful (status code 200)
-        if responses.status_code == 200:
-            data = APICall(userToken, search_url, "GET")
-            # Extract the artist ID from the response
-            if 'artists' in data and 'items' in data['artists'] and data['artists']['items']:
-                artist_id = data['artists']['items'][0]['id']  # Take the first artist's ID
-                return artist_id
-            else:
-                # print(f"No artist found with the name '{artist_name}'")
-                return None
-        else:
-            # print(f"Error: {responses.status_code} - {responses.text}")
-            return None
-
-    except requests.RequestException as e:
-        # print(f"Error fetching data: {e}")
-        return None
+    print("Finding Artist")
+    url = "v1/search?q=remaster%25" + artist_name + "&type=artist"
+    data = APICall(userToken, url, 'GET')
     
+    return data["artists"]["items"][2]["id"] 
+
+
 def get_track_id(access_token, track_name):
-    # Spotify search URL for artists
-    search_url = f'https://api.spotify.com/v1/search?q={track_name}&type=track'
 
-    # Authorization header with the access token
-    headers = {
-        'Authorization': f'Bearer {access_token}'
-    }
+    print("Finding Artist")
+    url = "v1/search?q=remaster%2520track%3A" + track_name + "&type=track"
+    data = APICall(userToken, url, 'GET')
 
-    try:
-        # Make a GET request to search for the artist
-        responses = requests.get(search_url, headers=headers)
 
-        # Check if the request was successful (status code 200)
-        if responses.status_code == 200:
-            data = APICall(userToken, search_url, "GET")
-            # Extract the artist ID from the response
-            if 'tracks' in data and 'items' in data['tracks'] and data['tracks']['items']:
-                track_id = data['tracks']['items'][0]['id']  # Take the first track's ID
-                return track_id
-            else:
-                # print(f"No artist found with the name '{track_name}'")
-                return None
-        else:
-            # print(f"Error: {responses.status_code} - {responses.text}")
-            return None
+    for i in range(0, len(data["tracks"]["items"])):
 
-    except requests.RequestException as e:
-        # print(f"Error fetching data: {e}")
-        return None
+        if data["tracks"]["items"][i]["album"]["name"].lower() == track_name.lower():
+            return data["tracks"]["items"][i]["album"]["id"]
 
 @app.route('/redirect2') 
 def redirect2():
@@ -244,14 +205,14 @@ def redirect2():
 
 @app.route('/generate_playlist', methods=['POST'])
 def generate_playlist():
-    artist_names = "4NHQUGzhtTLFvgF5SZesLK" #request.form['artist_form']
-    genre = "classical,country" #request.form['genre_form']
-    track_names = "0c6xIDDpzE81m2q797ordA" #request.form['track_form']
+    artist_names = request.form['artist_form']
+    genre = request.form['genre_form']
+    track_names = request.form['track_form']
     
     songURIs = []
 
-    id_of_artist = get_artist_id(userToken, artist_names)
-    id_of_track = get_track_id(userToken, track_names)
+    id_of_artist = str( get_artist_id(userToken, artist_names) )
+    id_of_track = str( get_track_id(userToken, track_names) )
     
      #----------------------------------------------
     # Get 10 Recommended Songs
@@ -276,10 +237,11 @@ def generate_playlist():
     playlist = APICall(userToken, f'v1/users/{user_id}/playlists', 'POST', body=playlist_data)
     songURIs_str = ','.join(songURIs)
 
+
     #----------------------------------------------
     # Add Playlist
     APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
-
+    
     return redirect(url_for('redirect2'))
 
 
