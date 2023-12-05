@@ -205,9 +205,9 @@ def redirect2():
 
 @app.route('/generate_playlist', methods=['POST'])
 def generate_playlist():
-    artist_names = request.form['artist_form']
-    genre = request.form['genre_form']
-    track_names = request.form['track_form']
+    artist_names = "Pitbull" #request.form['artist_form']
+    genre = "pop" #request.form['genre_form']
+    track_names = "Hideaway" #request.form['track_form']
     
     songURIs = []
 
@@ -241,7 +241,7 @@ def generate_playlist():
     #----------------------------------------------
     # Add Playlist
     APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
-    
+
     return redirect(url_for('redirect2'))
 
 
