@@ -244,9 +244,9 @@ def redirect2():
 
 @app.route('/generate_playlist', methods=['POST'])
 def generate_playlist():
-    artist_names = request.form['artist_form']
-    genre = request.form['genre_form']
-    track_names = request.form['track_form']
+    artist_names = "4NHQUGzhtTLFvgF5SZesLK" #request.form['artist_form']
+    genre = "classical,country" #request.form['genre_form']
+    track_names = "0c6xIDDpzE81m2q797ordA" #request.form['track_form']
     
     songURIs = []
 
