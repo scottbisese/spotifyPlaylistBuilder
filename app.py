@@ -155,7 +155,7 @@ def generate_playlist():
     user_info = APICall(userToken, 'v1/me', 'GET')
     user_id = user_info['id']
 
-    playlistName = 'Zama"s Playlist: ' 
+    playlistName = 'Searched Playlist' 
     playlist_data = {
             'name': playlistName,
             'description': 'Playlist created by the tutorial on developer.spotify.com',
@@ -248,8 +248,8 @@ def playlist_embed():
     return render_template('playlist_preview.html', playlist_url=playlist_url, playlist_name=playlist_data["name"])
 
 
-@app.route('/Top1Song') 
-def Top1Song():
+@app.route('/Top10Song') 
+def Top10Song():
 
     topSongs = APICall(userToken, 'v1/me/top/tracks?time_range=short_term&limit=10', 'GET')
     userInfo = APICall(userToken, 'v1/me', 'GET')
@@ -272,6 +272,7 @@ def Top1Song():
 # =================================================================
 @app.route('/randomPlaylist') 
 def randomPlaylist():
+    global recently_created_playlist
     songURIs = []
     
     #----------------------------------------------
@@ -309,7 +310,9 @@ def randomPlaylist():
     # Add Playlist
     APICall(userToken,f'v1/playlists/{playlist["id"]}/tracks?uris={songURIs_str}', 'POST')
 
-    return redirect(url_for('CompletePlaylist'))
+    recently_created_playlist = {'id': playlist["id"], 'name': playlistName}
+
+    return redirect(url_for('playlist_preview'))
 
 # =================================================================
 
