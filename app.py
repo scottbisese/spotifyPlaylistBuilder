@@ -312,7 +312,7 @@ def randomPlaylist():
 
     recently_created_playlist = {'id': playlist["id"], 'name': playlistName}
 
-    return redirect(url_for('playlist_preview'))
+    return redirect(url_for('CompletePlaylist'))
 
 # =================================================================
 
