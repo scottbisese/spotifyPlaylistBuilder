@@ -35,7 +35,7 @@ h1 {
   border-collapse: collapse;
   width: 100%;
   background-color: black; /* Set a solid black background */
-  color: green; /* Set the text color inside the table cells to green */
+  color: white; /* Set the text color inside the table cells to green */
 }
 
 #table1 td,
@@ -49,7 +49,7 @@ h1 {
 }
 
 #table1 tr:hover {
-  background-color: #ddd;
+  background-color: rgb(99, 99, 99);
 }
 
 #table1 th {
