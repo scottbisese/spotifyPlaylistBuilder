@@ -56,7 +56,7 @@ h1 {
     padding: 8px;
   }
   
-  #table1 tr:nth-child(even){background-color: #10c750a3}
+  #table1 tr:nth-child(even){background-color: linear-gradient(to bottom, #737b73b6, #f7f7f7);}
   
   #table1 tr:hover {background-color: #ddd;}
   
