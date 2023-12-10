@@ -45,7 +45,7 @@ h1 {
 }
 
 #table1 tr:nth-child(even) {
-  background-color: #737b73b6; /* Use a solid color for even rows */
+  background-color: black; /* Use a solid color for even rows */
 }
 
 #table1 tr:hover {
