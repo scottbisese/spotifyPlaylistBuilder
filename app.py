@@ -32,6 +32,7 @@ def removeSpecialChars(sentence):
 
 # ============================================
 # Function to Call Spotify API
+# replace with spotipy version of token handling...
 def APICall(useToken, endpoint, method, body=None):
     headers = {
             'Authorization': f'Bearer {useToken}',
@@ -315,7 +316,6 @@ def randomPlaylist():
     return redirect(url_for('CompletePlaylist'))
 
 # =================================================================
-
 @app.route('/table') 
 def table():
 
@@ -337,8 +337,6 @@ def table():
     cursor.close()
 
     return render_template('table.html', records=records)
-
-
 
 if __name__ == '__main__': 
     app.run()
